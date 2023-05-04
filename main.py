@@ -13,4 +13,4 @@ clientsecret = "AMm2G1ysWP463wh6Mz8LblT-vOq-7IxpChYemf6hiEdA0eoWTC"
 
 api = tweepy.API(authenticator)
 
-client.create_tweet(text= "Hi")
+client.create_tweet(text= "Srivatsa is the best")

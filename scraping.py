@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 base_url = 'https://transcripts.foreverdreaming.org/'
 
 # URL of the forum containing all the episode transcripts
-url = 'https://transcripts.foreverdreaming.org/viewforum.php?f=50'
+url = 'https://transcripts.foreverdreaming.org/viewforum.php?f=50&start=78'
 
 # List to store the URLs of all the episode transcripts
 episode_urls = []
@@ -14,24 +14,14 @@ episode_urls = []
 dialogues_dict = {}
 
 # Loop through all the pages of the forum and extract the URLs of the episode transcripts
-page_num = 1
-while True:
-    # Send a GET request to the current page of the forum and parse the HTML content using BeautifulSoup
-    response = requests.get(f'{url}&start={(page_num - 1) * 25}')
-    soup = BeautifulSoup(response.content, 'html.parser')
+response = requests.get(url)
+soup = BeautifulSoup(response.content, 'html.parser')
 
-    # Find all the topics on the page and extract the URLs of the episode transcripts
-    topics = soup.find_all('a', class_='topictitle')
-    for topic in topics:
-        episode_url = base_url + topic['href']
-        episode_urls.append(episode_url)
-
-    # Check if there is a "Next" button to go to the next page
-    next_button = soup.find('a', class_='next')
-    if next_button:
-        page_num += 1
-    else:
-        break
+# Find all the topics on the page and extract the URLs of the episode transcripts
+topics = soup.find_all('a', class_='topictitle')
+for topic in topics:
+    episode_url = base_url + topic['href']
+    episode_urls.append(episode_url)
 
 # Loop through all the episode URLs and extract the dialogues
 for episode_url in episode_urls:
@@ -46,7 +36,9 @@ for episode_url in episode_urls:
     # Store the dialogues in the dictionary
     dialogues_dict[episode_num] = dialogues
 
-for episode_num, dialogues in dialogues_dict.items():
-    print("Episode {} - Number of dialogues: {}".format(
-        episode_num, len(dialogues.split('\n'))))
-    print(dialogues)
+# Write the dialogues for each episode to a text file
+with open('dialogues1.txt', 'w', encoding='utf-8') as file:
+    for episode_num, dialogues in dialogues_dict.items():
+        file.write("Episode {} - Number of dialogues: {}".format(episode_num, len(dialogues.split('\n'))))
+        file.write(dialogues)
+        file.write('\n\n')
