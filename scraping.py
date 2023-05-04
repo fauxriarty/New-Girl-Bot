@@ -46,5 +46,7 @@ for episode_url in episode_urls:
     # Store the dialogues in the dictionary
     dialogues_dict[episode_num] = dialogues
 
-for dialogues in dialogues_dict.items():
+for episode_num, dialogues in dialogues_dict.items():
+    print("Episode {} - Number of dialogues: {}".format(
+        episode_num, len(dialogues.split('\n'))))
     print(dialogues)
