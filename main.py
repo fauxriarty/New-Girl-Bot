@@ -1,5 +1,4 @@
 import tweepy
-import time
 import random
 
 api_key = "cJuF7sWrFwE6PvOSHhtgrqKvD"
@@ -17,15 +16,18 @@ api = tweepy.API(authenticator)
 
 
 with open('dialogues.txt', 'r', encoding='utf-8') as file:
-    dialogues = file.read().split('\n\n')
+    lines = file.readlines()
 
-# Set up a loop to tweet a random dialogue every 24 hours
-while True:
-    # Get a random dialogue from the list
-    random_dialogue = random.choice(dialogues)
+# Randomly select a starting index for the dialogue
+start_index = random.randint(0, len(lines)-4)
 
-    # Tweet the random dialogue
-    client.create_tweet(text=random_dialogue)
+# Get the two consecutive dialogues
+dialogue1 = lines[start_index].strip()
+dialogue2 = lines[start_index+1].strip()
+dialogue3 = lines[start_index+2].strip()
+dialogue4 = lines[start_index+3].strip()
+# Create the tweet
+tweet = f"-{dialogue1}\n-{dialogue2}\n-{dialogue3}\n-{dialogue4}\n"
 
-    # Wait for 24 hours before tweeting again
-    time.sleep(86400)
+# Post the tweet
+client.create_tweet(text=tweet)
