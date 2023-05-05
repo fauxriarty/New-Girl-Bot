@@ -1,4 +1,6 @@
 import tweepy
+import time
+import random
 
 api_key = "cJuF7sWrFwE6PvOSHhtgrqKvD"
 api_key_secret = "5gfSabIlwrScMbiW6MTHQZyRLqegFS8FXYRuXdcxZJeDNyEIuA"
@@ -13,4 +15,17 @@ clientsecret = "AMm2G1ysWP463wh6Mz8LblT-vOq-7IxpChYemf6hiEdA0eoWTC"
 
 api = tweepy.API(authenticator)
 
-client.create_tweet(text= "Srivatsa is the best")
+
+with open('dialogues1.txt', 'r', encoding='utf-8') as file:
+    dialogues = file.read().split('\n\n')
+
+# Set up a loop to tweet a random dialogue every 24 hours
+while True:
+    # Get a random dialogue from the list
+    random_dialogue = random.choice(dialogues)
+
+    # Tweet the random dialogue
+    client.create_tweet(text=random_dialogue)
+
+    # Wait for 24 hours before tweeting again
+    time.sleep(86400)
