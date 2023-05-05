@@ -16,7 +16,7 @@ clientsecret = "AMm2G1ysWP463wh6Mz8LblT-vOq-7IxpChYemf6hiEdA0eoWTC"
 api = tweepy.API(authenticator)
 
 
-with open('dialogues1.txt', 'r', encoding='utf-8') as file:
+with open('dialogues.txt', 'r', encoding='utf-8') as file:
     dialogues = file.read().split('\n\n')
 
 # Set up a loop to tweet a random dialogue every 24 hours

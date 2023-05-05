@@ -12,19 +12,17 @@ dialogues_dict = {}
 response = requests.get(url)
 soup = BeautifulSoup(response.content, 'html.parser')
 
-# Find all the topics on the page and extract the URLs of the episode transcripts
+# fibd all the topics on the page and extract the urls of the episode transcripts
 topics = soup.find_all('a', class_='topictitle')
 for topic in topics:
     episode_url = base_url + topic['href']
     episode_urls.append(episode_url)
 
-# Loop through all the episode URLs and extract the dialogues
+# loop through all the episode urls and extract the dialogues
 for episode_url in episode_urls:
-    # Send a GET request to the episode transcript page and parse the HTML content using BeautifulSoup
     response = requests.get(episode_url)
     soup = BeautifulSoup(response.content, 'html.parser')
 
-    # Find the episode number and dialogues
     episode_num = soup.find('h2', class_='topic-title').text.split(':')[0].strip()
     dialogues = soup.find('div', class_='postbody').get_text()
 
