@@ -18,7 +18,7 @@ with open('dialogues2.txt', 'w') as f:
 
 # this code was to remove the unnecessary noise from the script, now of no use
 
-
+''''
 with open("dialogues.txt", "r") as f:
     lines = f.readlines()
 
@@ -27,4 +27,5 @@ new_lines = [line.strip() for line in lines if line.strip()]
 
 # Write back to the file
 with open("dialogues.txt", "w") as f:
-    f.write("\n".join(new_lines))
+    f.write("\n".join(new_lines))'''
+
