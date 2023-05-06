@@ -1,6 +1,7 @@
 import tweepy
 import random
 import time
+import requests
 
 api_key = "cJuF7sWrFwE6PvOSHhtgrqKvD"
 api_key_secret = "5gfSabIlwrScMbiW6MTHQZyRLqegFS8FXYRuXdcxZJeDNyEIuA"
@@ -22,6 +23,13 @@ with open('dialogues.txt', 'r') as f:
 num_dialogues = 3
 
 while True:
+    # Check if internet connection is available
+    try:
+        requests.get('https://www.google.com/')
+    except requests.exceptions.RequestException as e:
+        print("No internet connection. Retrying in 2 mins...")
+        time.sleep(120)
+        continue
     # Choose a random starting point in the dialogues list
     start_idx = random.randint(0, len(dialogues) - num_dialogues - 1)
 
